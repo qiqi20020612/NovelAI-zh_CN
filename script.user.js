@@ -1,12 +1,17 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      1.0
+// @version      1.1
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
 // @grant        none
+// @updateURL    https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
 // ==/UserScript==
+
+
+
+
 
 (function() {
     'use strict';
@@ -77,7 +82,7 @@
         // 文生图
         'Prompt': '提示词',
         'Write your prompt here. Use tags to sculpt your outputs.': '在此处写下您的提示词。使用Tags来调整输出。',
-        'or': '或者',
+        // 'or': '或者',
         'Randomize': '随机生成提示词',
         'tokens out of': 'tokens 已使用，',
         'tokens used': 'tokens 总可用',
@@ -104,14 +109,17 @@
         'Optional': '可选',
         'Image2Image': '图生图',
         'Transf或者m your image.': '改变您的图片。',
+        'Transform your image.': '改变您的图片。',
         'Strength': '强度',
         'Noise': '噪声',
         'Convert using a Control Tool': '使用控制工具进行转换',
         'Details': '详情',
         'Control Tools not supp或者ted f或者 chosen model.': '所选模型不支持控制工具。',
+        'Control Tools not supported for chosen model.': '所选模型不支持控制工具。',
         'Palette Swap': '交换调色板',
         'Reskin and re-stylize.': '重新上色并改变图像的原始风格',
         'F或者m Lock': '锁定布局',
+        'Form Lock': '锁定布局',
         'Keep the layout, change the content.': '保留图像的原始布局，重新绘制内容。',
         'Scribbler': '涂鸦者',
         'Turn fridge art into modern art.': '将古典艺术风格变为现代艺术风格',
@@ -162,7 +170,9 @@
         'High resolution samplers will automatically be used above a certain image size.': '在图像超过一定尺寸时将自动使用高分辨率采样器。',
         'Other': '其它',
         'Smea versions of samplers are modified to perf或者m better at high resolutions.': '在高分辨率下经过SMEA调整后的采样器性能更佳。',
+        'Smea versions of samplers are modified to perform better at high resolutions.': '在高分辨率下经过SMEA调整后的采样器性能更佳。',
         'Dyn variants of smea samplers often lead to m或者e varied output, but may fail at very high resolutions.': 'SMEA采样器的DYN变体通常会带来更多样化的输出，但在非常高的分辨率下可能会失效。',
+        'Dyn variants of smea samplers often lead to more varied output, but may fail at very high resolutions.': 'SMEA采样器的DYN变体通常会带来更多样化的输出，但在非常高的分辨率下可能会失效。',
         'Advanced Settings': '高级设置',
         'Values other than 100% will increase generation time and Anlas cost.': '值超过100%时会增加生成所需的时间，且会消耗更多的Anlas。',
         '负面提示词 Strength': '负面提示词强度',
