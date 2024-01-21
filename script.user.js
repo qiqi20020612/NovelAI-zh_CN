@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      1.1
+// @version      1.5
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -47,6 +47,8 @@
         'Delete it': '确认删除',
         'No, keep it': '不，取消',
         'Download ZIP': '打包下载全部图片',
+        'Download all images? This could take a while, or fail entirely, with large numbers of images.': '确实要下载所有图像吗？如果图像数量较多，可能会需要一些时间，或导致下载失败。',
+        'Images downloaded': '图片已开始下载',
 
         // 账号信息
         'UI Language': 'UI语言（汉化仅在英语生效）',
@@ -84,7 +86,13 @@
         'Write your prompt here. Use tags to sculpt your outputs.': '在此处写下您的提示词。使用Tags来调整输出。',
         // 'or': '或者',
         'Randomize': '随机生成提示词',
+        'Prompt is too long and will be cut off.': '提示词过长，将被截断。',
+        '提示词 is too long and will be cut off.': '提示词过长，将被截断。',
+        'Using': '已使用',
+        'out of': 'tokens，总共',
+        'available tokens.': 'tokens 可用。',
         'tokens out of': 'tokens 已使用，',
+        'tokens tokens，总共': 'tokens 已使用，',
         'tokens used': 'tokens 总可用',
         'Quality Tags Enabled': '已启用质量优化',
         'Did you mean': '您的意思是',
@@ -92,21 +100,38 @@
         'Reattach ': '合并',
         'Undesired Content': '负面提示词',
         'Write what you want removed from the generation.': '写出您希望从生成中移除的内容。',
+        'Undesired Content is too long and will be cut off.': '负面提示词过长，将被截断。',
+        'Negative prompt is too long and will be cut off.': '负面提示词过长，将被截断。',
+        '负面提示词 is too long and will be cut off.': '负面提示词过长，将被截断。',
         'UC Preset Enabled': '已启用负面提示词预设',
         '提示词 Settings': '提示词设置',
         'Add Quality Tags': '添加质量优化',
+        // 质量优化提示词：best quality, amazing quality, very aesthetic, absurdres
         'Tags to increase quality will be prepended to the prompt.': '生成时会在提示词的最后添加用来提高质量的Tags。',
         'The prompt will be used unmodified.': '生成时将不会修改提示词。',
         '负面提示词 Preset': '负面提示词预设',
-        'Heavy': '重型',
-        'Light': '灯光',
-        'Human Focus': '以人为本',
+        'Heavy': '全面',
+        // 全面档负面提示词：nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract]
+        'Light': '精简',
+        // 精简档负面提示词：nsfw, lowres, jpeg artifacts, worst quality, watermark, blurry, very displeasing
+        'Human Focus': '聚焦角色',
+        // 聚焦角色档负面提示词：nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract], bad anatomy, bad hands, @_@, mismatched pupils, heart-shaped pupils, glowing eyes
         'None': '无',
+        // 即使选择无，也会添加负面提示词：lowres
         'Disable Tag Suggestions': '禁用Tags建议',
 
         // 图生图
         'Add a Base Img ': '添加原始图像',
         'Optional': '可选',
+        'Image with Metadata found!': '找到带有元数据的图片！',
+        'Import the Image or import Settings and Prompt': '作为原始图像导入还是复用元数据中的设置和提示词',
+        'Import the Image or import Settings and 提示词': '作为原始图像导入还是复用元数据中的设置和提示词',
+        'Import Image': '作为原始图像导入',
+        'Import Prompt': '导入提示词',
+        'Import 提示词': '导入提示词',
+        'Import Settings': '导入设置',
+        'Import Settings+Seed': '导入设置+种子',
+        'Import Settings+种子': '导入设置+种子',
         'Image2Image': '图生图',
         'Transf或者m your image.': '改变您的图片。',
         'Transform your image.': '改变您的图片。',
@@ -128,6 +153,8 @@
         'Landscaper': '景观设计师',
         'Sculpt valleys and vistas.': '雕琢山谷和美景。',
         'Inpaint': '局部重绘',
+        '局部重绘 Image': '重绘图像',
+        'Inpaint Image': '重绘图像',
         'Change part of an image.': '改变图像的一部分',
         'Overlay Original Image': '覆盖原始图像',
         'Prevents the existing image from changing, but can introduce seams along the edge of the mask.': '防止改变原始图像，但可能会在遮罩边缘产生接缝。',
@@ -159,6 +186,9 @@
         // AI设置
         'AI Settings': 'AI设置',
         'Reset Settings': '重置设置',
+        'Reset all settings to default': '确实要恢复所有设置为默认状态吗',
+        'Yes': '确定',
+        'Cancel': '取消',
         'Steps': '步数',
         'Guidance': '引导值',
         'Decrisper': '去屑器',
@@ -180,7 +210,7 @@
         '噪声 Schedule': '噪声计划表',
         'native': '原始',
         'recommended': '推荐',
-        'N/A': '未设置',
+        'N/A': '随机',
         'Generate 1 Image': '生成1张图像',
         'Generate 2 Images': '生成2张图像',
         'Generate 3 Images': '生成3张图像',
@@ -189,6 +219,8 @@
         'Generate 6 Images': '生成6张图像',
 
         // 生成
+        'Unable to connect to NovelAI, please check your internet connection.': '无法链接到NovelAI服务器，请检查您的网络状况。',
+        'There are issues connecting to the backend right now, please check your connection or try again...': '连接到服务器时出现问题，请检查您的网络状况或稍后重试...',
         'Enhance': '增强',
         '增强 Image': '增强图像',
         'Upscale Amount': '提升分辨率倍数',
