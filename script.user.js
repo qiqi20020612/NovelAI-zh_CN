@@ -1,17 +1,13 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      1.5
+// @version      1.6
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
 // ==/UserScript==
-
-
-
-
 
 (function() {
     'use strict';
@@ -221,6 +217,8 @@
         // 生成
         'Unable to connect to NovelAI, please check your internet connection.': '无法链接到NovelAI服务器，请检查您的网络状况。',
         'There are issues connecting to the backend right now, please check your connection or try again...': '连接到服务器时出现问题，请检查您的网络状况或稍后重试...',
+        'Identical parameters to last generation. You may want to change or remove the image seed.': '参数与上一次生成完全相同，图像不会发生变化。您可能需要更改或删除种子。',
+        'load failed': '加载失败',
         'Enhance': '增强',
         '增强 Image': '增强图像',
         'Upscale Amount': '提升分辨率倍数',
