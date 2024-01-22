@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      1.6
+// @version      1.7
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
+// @match        https://novelai.net/inspect
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
+// @downloadURL    https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
 // ==/UserScript==
 
 (function() {
@@ -204,7 +206,6 @@
         '负面提示词 Strength': '负面提示词强度',
         '提示词 引导值 Rescale': '缩放提示词引导值',
         '噪声 Schedule': '噪声计划表',
-        'native': '原始',
         'recommended': '推荐',
         'N/A': '随机',
         'Generate 1 Image': '生成1张图像',
@@ -236,7 +237,27 @@
         'Copy to Clipboard': '复制到剪贴板',
         'Image copied to clipboard': '图片已复制到剪贴板',
         'Download Image': '下载图片',
-        'Copy to 种子': '复制种子'
+        'Copy to 种子': '复制种子',
+
+        // 检视
+        'Click the upload button or drag an image into the window to check its metadata.': '点击上传按钮或将图片拖入窗口以检视其元数据。',
+        '单击 the upload button or drag an image into the window to check its metadata.': '点击上传按钮或将图片拖入窗口以检视其元数据。',
+        'Upload Image': '上传图像',
+        'This image contains no metadata.': '这张图片没有元数据。',
+        'Application error: a client-side exception has occurred': '应用程序错误：客户端出现异常，请刷新页面.（查看浏览器控制台以获取更多信息）',
+        'see the browser console for more information': '提示：你是不是上传了SD-WebUI生成的图像？',
+        'Title': '标题',
+        'Description': '提示词',
+        'Software': '软件',
+        'Source': '模型',
+        'Request Type': '请求类型',
+        'Text to Image': '文生图',
+        'Image to Image': '图生图',
+        '局部重绘ing': '局部重绘',
+        'Simplified': '简略',
+        'Resolution': '分辨率',
+        'Raw Parameters': '原始参数',
+        '提示词GenerateRequest': 'PromptGenerateRequest'
     };
 
     // 替换函数
@@ -248,8 +269,17 @@
 
     // 修改网页标题函数
     function modifyPageTitle() {
-        const newTitle = '图像生成 - NovelAI';
-        document.title = newTitle;
+        // 获取当前页面地址
+        const currentPageUrl = window.location.href;
+
+        // 判断地址并修改标题
+        if (currentPageUrl.includes('inspect')) {
+            document.title = '检视图像参数 - NovelAI';
+        } else {
+            setTimeout(() => {
+                document.title = '图像生成 - NovelAI';
+            }, 3500); // 等待页面加载，延迟3.5秒
+        }
     }
 
     // 监听DOM变化
