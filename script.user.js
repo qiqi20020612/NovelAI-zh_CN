@@ -1,14 +1,15 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      1.7
+// @version      1.8
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
 // @match        https://novelai.net/inspect
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
-// @downloadURL    https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
+// @downloadURL  https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
+// @license      GPL-3.0-or-later
 // ==/UserScript==
 
 (function() {
@@ -38,14 +39,15 @@
 
         // 历史记录
         'History': '历史记录',
-        'Click': '单击',
-        ' on an image to set your settings to the ones used to generate it': '图像可以快速应用生成该图像时使用的原始设置',
-        'except for any init image': '种子和图生图原始图像的属性不会被复制',
+        'Click on an image to set your settings to the ones used to generate it': '左键点击图像可以快速应用生成该图像时的原始设置',
+        'except for any init image': '种子和原始图像不会被复制',
         'Delete this image': '确定要删除这张图片吗',
         'Delete it': '确认删除',
         'No, keep it': '不，取消',
         'Download ZIP': '打包下载全部图片',
         'Download all images? This could take a while, or fail entirely, with large numbers of images.': '确实要下载所有图像吗？如果图像数量较多，可能会需要一些时间，或导致下载失败。',
+        'Downloading': '正在下载',
+        'images...': '张图片...',
         'Images downloaded': '图片已开始下载',
 
         // 账号信息
@@ -227,8 +229,11 @@
         'Show Advanced': '显示高级设置',
         'Hide Advanced': '隐藏高级设置',
         'Generate Variations': '生成变体',
+        'Variations': '生成变体',
         'Upscale': '提升分辨率',
+        'Error upscaling image': '提升图像分辨率失败',
         'Use as Base Image': '作为原图使用',
+        'Use as Base': '用作原图',
         'Edit Image': '编辑图片',
         'Inpaint Image': '重绘图片',
         'Pin Image': '固定图片',
@@ -241,7 +246,6 @@
 
         // 检视
         'Click the upload button or drag an image into the window to check its metadata.': '点击上传按钮或将图片拖入窗口以检视其元数据。',
-        '单击 the upload button or drag an image into the window to check its metadata.': '点击上传按钮或将图片拖入窗口以检视其元数据。',
         'Upload Image': '上传图像',
         'This image contains no metadata.': '这张图片没有元数据。',
         'Application error: a client-side exception has occurred': '应用程序错误：客户端出现异常，请刷新页面.（查看浏览器控制台以获取更多信息）',
