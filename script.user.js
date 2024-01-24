@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      1.8
+// @version      1.9
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
 // @match        https://novelai.net/inspect
+// @icon         https://novelai.net/icons/novelai-round.png
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
 // @downloadURL  https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
@@ -32,9 +33,8 @@
         'of your wordage.': '。',
         'This is a new technology that ': '这是一项新技术，',
         'may generate unpredictable results.': '可能会产生不可预知的结果。',
-        'Don': '不要',
-        '\'': '再次',
-        't show this again.': '提示此消息',
+        'Don': '',
+        't show this again.': '不要再次提示此消息',
         'OK': '确定',
 
         // 历史记录
