@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      1.10
+// @version      2.0
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
 // @match        https://novelai.net/inspect
 // @icon         https://novelai.net/icons/novelai-round.png
-// @grant        none
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_registerMenuCommand
 // @updateURL    https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
 // @downloadURL  https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js
 // @license      GPL-3.0-or-later
@@ -15,6 +17,9 @@
 
 (function() {
     'use strict';
+
+    // 获取用户设置，如果未设置则默认为启用标题修改
+    var isTitleModificationEnabled = GM_getValue('isTitleModificationEnabled', true);
 
     // 文本替换映射表
     const translationMap = {
@@ -273,6 +278,10 @@
 
     // 修改网页标题函数
     function modifyPageTitle() {
+        if (!isTitleModificationEnabled) {
+            return; // 如果禁用标题修改，则直接返回
+        }
+
         // 获取当前页面地址
         const currentPageUrl = window.location.href;
 
@@ -297,6 +306,20 @@
             });
         }
     }
+    
+    // 更新菜单项的文本
+    function updateMenuText() {
+        var menuText = isTitleModificationEnabled ? '禁用标题修改' : '启用标题修改';
+        GM_registerMenuCommand(menuText, function() {
+            isTitleModificationEnabled = !isTitleModificationEnabled;
+            GM_setValue('isTitleModificationEnabled', isTitleModificationEnabled);
+            alert('标题修改功能' + (isTitleModificationEnabled ? '已启用' : '已禁用') + '，现在页面标题' + (isTitleModificationEnabled ? '无法' : '能够') + '反映图像生成的进度。\n提示：刷新前请确保生成的图像、参数等已经被保存！');
+            updateMenuText(); // 在每次点击后重新更新菜单项文本
+        });
+    }
+
+    // 添加一个设置菜单，允许用户开启或关闭标题修改
+    updateMenuText();
 
     // 监听DOM变化
     const observer = new MutationObserver(mutations => {
