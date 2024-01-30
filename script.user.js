@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      1.9
+// @version      1.10
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -280,9 +280,21 @@
         if (currentPageUrl.includes('inspect')) {
             document.title = '检视图像参数 - NovelAI';
         } else {
-            setTimeout(() => {
-                document.title = '图像生成 - NovelAI';
-            }, 3500); // 等待页面加载，延迟3.5秒
+            var originalTitle = document.title;
+            document.title = '图像生成 - NovelAI';
+
+            // 覆盖 document.title 的 getter 和 setter
+            Object.defineProperty(document, 'title', {
+                get: function() {
+                    return originalTitle;
+                },
+                set: function(value) {
+                    // 防止设置新标题
+                    if (value !== originalTitle) {
+                        console.log('已拦截标题修改：', value);
+                    }
+                }
+            });
         }
     }
 
