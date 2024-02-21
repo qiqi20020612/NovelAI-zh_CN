@@ -5,6 +5,8 @@ zh_CN Translator script for NovelAI Image Generation
 [![stars](https://img.shields.io/github/stars/qiqi20020612/NovelAI-zh_CN)](https://github.com/qiqi20020612/NovelAI-zh_CN)
 
 ## Install 安装
+注意：目前新版本脚本存在[移动端失效的问题](https://github.com/qiqi20020612/NovelAI-zh_CN/issues/6)，此问题将在后续版本中修复。
+移动端用户请先使用[v1.10](https://github.com/qiqi20020612/NovelAI-zh_CN/raw/20a562ddace8a58ba4c2a1f8feb78f75f6a2c301/script.user.js)及之前的版本。
 [Greasy Fork](https://greasyfork.org/zh-CN/scripts/485444)（推荐）  
 [Github](https://raw.githubusercontent.com/qiqi20020612/NovelAI-zh_CN/main/script.user.js)
 

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      2.0
+// @version      2.3
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -21,9 +21,16 @@
     // 获取用户设置，如果未设置则默认为启用标题修改
     var isTitleModificationEnabled = GM_getValue('isTitleModificationEnabled', true);
 
+    // 设置页面语言为中文
+    document.documentElement.lang = 'zh-CN';
+
     // 文本替换映射表
     const translationMap = {
         // 弹窗提示
+        'Please read and agree with the following:': '请先阅读并同意以下条款：',
+        'Click here to agree with these terms': '点击这里以同意以上条款',
+        'I agree with the above terms': '我同意以上条款',
+        'Accept': '同意',
         'Image Generation Notice': '图像生成注意事项',
         'Make sure to save any Image Generations and Text Prompts you like!': '生成后请务必保存您喜欢的图像和提示词！',
         'Text prompts, image generations, canvas edits': '提示词、生成的图像、编辑过的画布',
@@ -63,15 +70,52 @@
         'Automatic Download': '自动下载',
         'Images will automatically download after generation.': '图像将在生成后自动下载。',
         'Images will not automatically download after generation.': '生成图像后不会自动下载。',
-        ' You are subscribed to the Opus tier!': '您已订阅 Opus 等级！',
+        'You are not subscribed!': '你当前没有有效的订阅！',
+        'Upgrade your subscription': '要升级你的订阅吗',
+        'Take me there': '前往升级',
+        'No, take me back!': '不，带我回去！',
+        'Tier Pricing': '分层定价',
+        'Note: Purchasing from Asia might currently result in additional delay in subscription activation': '注意：目前从亚洲订阅可能会导致激活的时间延迟',
+        'up to 4 hours': '最长4小时',
+        '/month': '/月',
+        'The AI': '人工智能',
+        'Access to Kayra, our top of the line AI Storyteller.': '解锁我们最先进的人工智能故事生成模型Kayra的使用权限。',
+        'Unlimited Text Generations': '无限制文本生成',
+        'Tokens of Memory': 'Tokens 记忆',
+        'That’s about ': '人工智能可记住约',
+        ' characters that the AI can remember.': '个字符。',
+        'Extra Goodies': '额外的好处',
+        'Refilled every month. Currency for Custom AI Module training and Image Generation.': '每月充值。用于训练定制AI模块和图像生成的货币。',
+        'Advanced AI TTS': '高级人工智能TTS',
+        'Bring your stories to life with the soothing sound of our generated TTS voices.': '通过我们生成的TTS语音，让您的故事栩栩如生。',
+        'Image Generation': '图像生成',
+        'Access to our advanced image generation models.': '访问我们的高级图像生成模型。',
+        'Best Value': '最划算',
+        'For the Enthusiast': '发烧友首选',
+        'Access to new Experimental Features': '抢鲜体验新的实验功能',
+        'You’ll get access to the latest and coolest new stuff before everyone else.': '您将抢先获得最新、最酷的新功能。',
+        'Unlimited': '无限制',
+        'normal and small sized generations.': '生成普通和小尺寸图像。',
+        'For images of up to 1024x1024 pixels and up to 28 steps when generating a single image.': '用于单张图像生成，最大1024x1024像素，最多28步。',
+        'For 张图片... up to 1024x1024 pixels and up to 28 steps when generating a single image.': '用于单张图像生成，最大1024x1024像素，最多28步。',
+        'You are subscribed to the Opus tier!': '您已订阅 Opus 等级！',
         'Your subscription renews around ': '您的订阅将在以下时间自动更新：',
         'Unsubscribe': '取消订阅',
+        'Warning: If you unsubscribe you will be unable to purchase additional Anlas for use in image generation.': '警告：取消订阅后，您将无法再购买用于图像生成的Anlas。',
         'Update Payment Method': '更新交易方式',
         'Activate a Gift Key': '激活兑换码',
+        'Activate': '激活',
+        'Error: subscriptionId should not be empty': '错误：兑换码不能为空',
+        'Error: Key not found.': '错误：未找到兑换码',
 
         // 购买Anlas
+        'You need to be logged in to purchase Anlas.': '你必须登录才能购买Anlas。',
         'Purchase': '购买',
+        'Do you really want to': '你确定要购买',
+        'purchase the following': '以下项目吗',
+        'Confirm 购买': '确定购买',
         'Here you can purchase additional Anlas for training your AI Modules and for Image Generation.': '您可以在此购买额外的Anlas，用于训练人工智能模块和图像生成。',
+        'Here you can purchase additional Anlas for training your AI Modules and for 图像生成.': '您可以在此购买额外的Anlas，用于训练人工智能模块和图像生成。',
         'Subscription Anlas will be refilled according to your subscription every month.': '订阅的Anlas将根据您的订阅情况每月补充。',
         'Your Subscription Anlas:': '您的订阅Anlas：',
         'Your Paid Anlas:': '您的付费Anlas：',
@@ -173,6 +217,11 @@
         'Erase': '橡皮',
         'Select': '选择',
         'Color Picker': '拾色器',
+        'Resize Canvas': '调整画布大小',
+        'Change Size': '更改尺寸',
+        'Crop to closest valid generation size': '裁剪为最接近的有效生成尺寸',
+        'Shift Edges': '移动边缘',
+        'Resize': '调整',
 
         // 图像设置
         'Image Settings': '图像设置',
@@ -221,14 +270,26 @@
         'Generate 4 Images': '生成4张图像',
         'Generate 5 Images': '生成5张图像',
         'Generate 6 Images': '生成6张图像',
+        'Invalid': '不可用',
 
         // 生成
         'Unable to connect to NovelAI, please check your internet connection.': '无法链接到NovelAI服务器，请检查您的网络状况。',
         'There are issues connecting to the backend right now, please check your connection or try again...': '连接到服务器时出现问题，请检查您的网络状况或稍后重试...',
         'Identical parameters to last generation. You may want to change or remove the image seed.': '参数与上一次生成完全相同，图像不会发生变化。您可能需要更改或删除种子。',
+        'Corrupted zip: can': '生成的图像已损坏：',
+        't find end of central directory': '这可能是网络不稳定导致的',
+        'Error generating image: 429 Concurrent generation is locked': '错误429：并发生成。操作频率过快，请稍后再试',
+        'An account is required to generate images.': '需要登录账号才能生成图像。',
+        'Error generating image: 400 Invalid Authorization header content.': '错误400：未授权访问。帐号状态异常。',
+        'Error generating image: 402 Not enough Anlas. Required: ': '错误402：Anlas不足。需要：',
+        ', Available: ': '，可用：',
+        'Load failed': '加载失败',
         'load failed': '加载失败',
         'Enhance': '增强',
         '增强 Image': '增强图像',
+        'Image is larger than ': '图像尺寸超过',
+        'OLD': '历史',
+        'ORIGINAL': '原图',
         'Upscale Amount': '提升分辨率倍数',
         'Magnitude': '幅度',
         'Show Advanced': '显示高级设置',
