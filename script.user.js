@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      2.3
+// @version      2.4
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -70,8 +70,8 @@
         'Automatic Download': '自动下载',
         'Images will automatically download after generation.': '图像将在生成后自动下载。',
         'Images will not automatically download after generation.': '生成图像后不会自动下载。',
-        'You are not subscribed!': '你当前没有有效的订阅！',
-        'Upgrade your subscription': '要升级你的订阅吗',
+        'You are not subscribed!': '您当前没有有效的订阅！',
+        'Upgrade your subscription': '要升级您的订阅吗',
         'Take me there': '前往升级',
         'No, take me back!': '不，带我回去！',
         'Tier Pricing': '分层定价',
@@ -109,9 +109,9 @@
         'Error: Key not found.': '错误：未找到兑换码',
 
         // 购买Anlas
-        'You need to be logged in to purchase Anlas.': '你必须登录才能购买Anlas。',
+        'You need to be logged in to purchase Anlas.': '您必须登录才能购买Anlas。',
         'Purchase': '购买',
-        'Do you really want to': '你确定要购买',
+        'Do you really want to': '您确定要购买',
         'purchase the following': '以下项目吗',
         'Confirm 购买': '确定购买',
         'Here you can purchase additional Anlas for training your AI Modules and for Image Generation.': '您可以在此购买额外的Anlas，用于训练人工智能模块和图像生成。',
@@ -176,9 +176,14 @@
         'Import the Image or import Settings and Prompt': '作为原始图像导入还是复用元数据中的设置和提示词',
         'Import the Image or import Settings and 提示词': '作为原始图像导入还是复用元数据中的设置和提示词',
         'Import Image': '作为原始图像导入',
+        'What do you want to do with this image': '您想要怎样处理这张图片',
+        'This image has metadata!': '这张图片带有元数据！',
+        'Did you want to import that instead': '您想要怎样导入它',
         'Import Prompt': '导入提示词',
         'Import 提示词': '导入提示词',
         'Import Settings': '导入设置',
+        'Import Seed': '导入种子',
+        'Import Metadata': '导入元数据',
         'Import Settings+Seed': '导入设置+种子',
         'Import Settings+种子': '导入设置+种子',
         'Image2Image': '图生图',
@@ -208,6 +213,11 @@
         'Overlay Original Image': '覆盖原始图像',
         'Prevents the existing image from changing, but can introduce seams along the edge of the mask.': '防止改变原始图像，但可能会在遮罩边缘产生接缝。',
         'Prevents seams along the edge of the mask, but means the existing image may change slightly.': '防止遮罩边缘出现接缝，但原始图像可能会发生变化。',
+        'Vibe Transfer': '氛围转移',
+        'Change the image, keep the vision.': '改变图像，保留视觉。',
+        'Information Extracted': '信息提取度',
+        'Reference Strength': '参考强度',
+        'Reference 强度': '参考强度',
         'Draw': '绘制',
         'Mask': '遮罩',
         'Pen Size': '笔尺寸',
@@ -315,7 +325,7 @@
         'Upload Image': '上传图像',
         'This image contains no metadata.': '这张图片没有元数据。',
         'Application error: a client-side exception has occurred': '应用程序错误：客户端出现异常，请刷新页面.（查看浏览器控制台以获取更多信息）',
-        'see the browser console for more information': '提示：你是不是上传了SD-WebUI生成的图像？',
+        'see the browser console for more information': '提示：您是不是上传了SD-WebUI生成的图像？',
         'Title': '标题',
         'Description': '提示词',
         'Software': '软件',
