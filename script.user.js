@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      3.2
+// @version      3.3
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -295,36 +295,94 @@
         });
     }
 
-    // 监听DOM变化 (使用优化后的逻辑)
-    const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            // 只关心新添加的节点
-            if (mutation.addedNodes.length) {
-                mutation.addedNodes.forEach(node => {
-                    // 对每个新添加的节点和它的所有后代进行一次高效的文本替换
-                    traverseAndReplace(node);
-                });
+    let observer = null; // 将 observer 声明在外面，方便管理
+
+    // 核心翻译函数，保持不变
+    function translateNode(node) {
+        // 使用 TreeWalker 高效遍历所有文本节点
+        const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+        let currentNode;
+        while (currentNode = walker.nextNode()) {
+            replaceText(currentNode); // replaceText 函数是你已经写好的
+        }
+    }
+
+    // 启动翻译和监视
+    function startTranslation() {
+        console.log("关键元素已找到，开始首次全局翻译并启动 MutationObserver。");
+
+        // 1. 对整个页面进行一次完整的初始翻译
+        translateNode(document.body);
+        modifyPageTitle(); // 标题修改也在这里执行
+
+        // 2. 创建并启动 MutationObserver 来监视后续变化
+        observer = new MutationObserver(mutations => {
+            for (const mutation of mutations) {
+                if (mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach(node => {
+                        // 只处理元素节点，忽略纯文本节点等
+                        if (node.nodeType === Node.ELEMENT_NODE) {
+                            translateNode(node);
+                        }
+                    });
+                }
+                // 有些变化可能不是添加节点，而是改变了现有节点的文本内容
+                // 虽然这种情况较少见，但为了保险起见，可以处理 characterData 变化
+                if (mutation.type === 'characterData' && mutation.target.parentNode) {
+                    // 只需翻译受影响的文本节点的父元素即可
+                    translateNode(mutation.target.parentNode);
+                }
             }
         });
-    });
 
-    // 初始化脚本
-    function init() {
-        // 首次加载时，对整个页面进行一次翻译
-        traverseAndReplace(document.body);
-        modifyPageTitle();
-
-        // 启动观察器以检测后续的DOM变化
+        // 监视整个 body 的子节点、后代树和文本内容的变化
         observer.observe(document.body, {
             childList: true,
-            subtree: true
+            subtree: true,
+            characterData: true // 增加对文本内容变化的监视
         });
     }
 
-    // 页面加载完成后运行脚本
-    if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
+
+    // 侦察兵函数：轮询检查关键元素是否存在
+    function waitForElement(selector, callback) {
+        const element = document.querySelector(selector);
+        if (element) {
+            // 元素已存在，执行回调函数
+            callback();
+        } else {
+            // 元素不存在，设置一个定时器，稍后重试
+            const intervalId = setInterval(() => {
+                const element = document.querySelector(selector);
+                if (element) {
+                    // 找到了！清除定时器并执行回调
+                    clearInterval(intervalId);
+                    callback();
+                }
+            }, 200); // 每200毫秒检查一次
+
+            // 设置一个超时，以防页面永远加载不出来，避免无限轮询
+            setTimeout(() => {
+                clearInterval(intervalId);
+                console.log(`等待关键元素 "${selector}" 超时，脚本可能无法正常工作。`);
+            }, 15000); // 15秒后超时
+        }
     }
-})();
+
+    // 脚本入口
+    function init() {
+        updateMenuText(); // 菜单设置可以立即执行
+
+        // 我们等待一个明确的、由React渲染出来的元素出现
+        // 比如包含 "Prompt" 输入框的容器。经过检查，它的父容器有一个 `data-testid="prompt-input"` 属性。
+        // 这是一个非常稳定和理想的目标！
+        // 如果这个选择器失效，可以换成 `textarea[placeholder*="your prompt"]` 等
+        const keyElementSelector = '.prompt-input-box-prompt'; 
+
+        waitForElement(keyElementSelector, startTranslation);
+    }
+
+    // 页面加载后运行脚本入口
+    init();
+
+})(); // 脚本IIFE的结束括号
