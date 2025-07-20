@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      3.0
+// @version      3.1
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -79,6 +79,7 @@
         'You are currently using Furry mode.': '您当前使用的是Furry模式。',
         // 'or': '或者',
         'Randomize': '随机生成',
+        'Random Prompt': '随机提示词',
         'Quality Tags Enabled': '已启用质量优化',
         'Added to the end of the prompt:': '会在输入的提示词结尾添加以下提示词：',
         'Undesired Content': '负面提示词',
@@ -108,11 +109,27 @@
         // 图生图
         'Add a Base Img': '上传基准图片',
         'Optional': '可选',
+        'What do you want to do with this image': '您想要怎样处理这张图片',
+        'Image2Image': '图生图',
+        'Transform your image.': '改变您的图片。',
+        'Strength': '强度',
+        'Noise': '噪声',
+        'Inpaint Image': '重绘图像',
+        'This image has metadata': '这张图片带有元数据',
+        'Did you want to import that instead': '您想要怎样导入它',
+        'Characters': '角色',
+        'Append': '附加',
+        'Settings': '设置',
+        'Import Metadata': '导入元数据',
+        'Clean Imports': '清除增益',
+        'Remove': '移除',
+        ', add spaces after commas': '，在逗号后添加空格',
 
         // 角色提示词
         'Character Prompts': '角色提示词',
         'Customize separate characters.': '自定义每个角色。',
         'Click to edit a character.': '点击以编辑一个角色。',
+        'Clear Random Prompt Characters': '清除随机提示词角色',
         'Add Character': '添加角色',
         'Female': '女性',
         'Male': '男性',
@@ -129,6 +146,15 @@
         // 其他工具
         'Vibe Transfer': '氛围转移',
         'Change the image, keep the vision.': '改变图像，保留视觉。',
+        'Normalize Reference Strength Values': '标准化参考强度值',
+        'Imported': '已导入',
+        'Vibe Transfer reference image': '张氛围转移参考图片',
+        'Enable/Disable Vibe Transfer Reference Image': '启用/禁用氛围转移参考图片',
+        'Reference Strength': '参考强度',
+        'Information Extracted': '信息提取度',
+        'Encoding required. This will cost': '需要编码。这将使下一次生成的成本增加',
+        'on the next generation.': '。',
+        'Learn more here.': '点击此处了解更多信息。',
 
         // 图像设置
         'Image Settings': '图像设置',
