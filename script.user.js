@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      3.1
+// @version      3.2
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -19,7 +19,10 @@
     'use strict';
 
     // 获取用户设置，如果未设置则默认为启用标题修改
-    var isTitleModificationEnabled = GM_getValue('isTitleModificationEnabled', true);
+    var isTitleModificationEnabled = true; // 先设置一个默认值
+    if (typeof GM_getValue === 'function') { // 检查 GM_getValue 是否存在且是一个函数
+        isTitleModificationEnabled = GM_getValue('isTitleModificationEnabled', true);
+    }
 
     // 设置页面语言为中文
     document.documentElement.lang = 'zh-CN';
@@ -271,8 +274,14 @@
         }
     }
 
-    // 菜单相关函数 (保持不变)
+    // 菜单相关函数
     function updateMenuText() {
+        // 只有在GM_registerMenuCommand和相关API可用时才执行菜单逻辑
+        if (typeof GM_registerMenuCommand !== 'function' || typeof GM_unregisterMenuCommand !== 'function' || typeof GM_setValue !== 'function') {
+            console.log('GM API not available, skipping menu command registration.'); // 在控制台打印一条信息，方便调试
+            return; // 直接退出函数
+        }
+
         var menuText = isTitleModificationEnabled ? '禁用标题修改' : '启用标题修改';
         // 为了避免重复注册，先清空旧的（虽然在这个脚本里影响不大，但是好习惯）
         if (window.myMenuCommandId) {
@@ -285,7 +294,6 @@
             updateMenuText();
         });
     }
-    updateMenuText();
 
     // 监听DOM变化 (使用优化后的逻辑)
     const observer = new MutationObserver(mutations => {
