@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      3.4
+// @version      3.6
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -287,6 +287,77 @@
         'The discounted Anlas pricing does not undefinedto accounts with canceled or non-renewing subscriptions.': '订阅已取消或已过期的帐户不能享受Anlas折扣。',
         'Your Subscription Anlas:': '您的订阅Anlas：',
         'Your Paid Anlas:': '您的付费Anlas：',
+
+        // 账号设置
+        'User Settings': '用户设置',
+        'Image Generation': '图像生成',
+        'Stream Image Generation': '流式图像生成',
+        'Intermediates of generating images will be streamed.': '流式传输生成图像的过程。',
+        'Intermediates of generating images will not be streamed.': '生成图像的过程不会被传输。',
+        'Show Streamed Images Unprocessed': '显示未完成的流式图像',
+        'All streamed images will be shown unprocessed.': '显示流式传输生成图像的所有步骤。',
+        'In progress streamed images will be blurred and the first few steps will not be shown.': '生成中的流式传输图像将变得模糊，并且不会显示最初的几个步骤。',
+        'Automatic Download': '自动下载',
+        'Images will automatically download after generation.': '图像生成完后将自动下载。',
+        'Images will not automatically download after generation.': '图像生成完后不会自动下载。',
+        'Interface': '界面',
+        'UI Language': 'UI语言',
+        'English': '简体中文',
+        'Current Tier': '当前层级',
+        'Your subscription expired on ': '你的订阅已结束于',
+        'Your subscription ends on ': '你的订阅将在',
+        ' and does not renew.': '到期且不会续订。',
+        'Manage': '管理',
+        'Pen Name': '笔名',
+        'Change': '更改',
+        'Delete Account': '删除账号',
+        'Not possible while subscribed.': '已订阅时无法使用。',
+        'Request': '请求',
+        'Show Account ID': '显示账号ID',
+        'Persistent API Token': '持久性API令牌',
+        'Get Persistent API Token': '获取持久性API令牌',
+        'Overwrite Persistent API Token': '覆盖持久性API令牌',
+        'You have an existing persistent API token. Creating a new one will invalidate the old one.': '您已有一个持久性API令牌。创建一个新的会使旧的失效。',
+        'Are you sure you want to overwrite it': '你确定要覆盖它吗',
+        'Overwrite': '覆盖',
+        'Below is a persistent API token that can be used to access the API.': '下面是可用于访问API的持久性API令牌。',
+        'Show Full Token': '显示完整的令牌',
+        'Note: You can only have a single persistent token at a time. Creating a new one will invalidate the old one. You will not be able to view this token again after closing this window.': '注意：一次只能拥有一个持久令牌。创建一个新的会使旧的失效。关闭此窗口后，将无法再次查看此令牌。',
+        'Stay Informed.': '随时了解信息。',
+        'Subscribe to our newsletter.': '订阅我们的新闻推送。',
+        'You’re signed up to our newsletter.': '您已订阅我们的新闻推送。',
+        'You’ll receive emails from us when we release new updates and other news.': '当我们发布新的更新或其他新闻时，您会收到我们的电子邮件。',
+        'Unsubscribe': '退订',
+        'Manage Cookie Preferences': '管理Cookie偏好设置',
+        'Default Storage Location': '默认存储位置',
+        'Local': '本地',
+        'Server': '服务器',
+        'New & imported stories will be saved locally only.': '新生成的故事和导入的故事只会保存在本地。',
+        'New & imported stories will be saved locally and stored encrypted remotely.': '新生成的故事和导入的故事将保存在本地，并在加密后传输到远程服务器。',
+        'Exporting and backing up your stories is highly recommended, should your browser cache get cleared, or if you lose access to your account.': '如果您清除浏览器缓存，或者失去了账户的访问权限，您将会无法访问。强烈建议导出并备份您的故事。',
+        'Download All Stories': '下载所有故事',
+        'Gift Key ': '礼品码',
+        'Purchasing Disabled': '购买已禁用',
+        'Gift key purchases have been removed indefinitely due to abuse.': '由于遭到滥用，购买礼品码已被无限期禁用。',
+        // 'Buy New Gift Key': '购买新的礼品码',
+        // 'No Gift Keys yet!': '还没有礼品码！',
+        'Support': '帮助',
+        'Change Log': '更新日志',
+
+        // 检视
+        'Click the upload button or drag an image into the window to check its metadata.': '点击上传按钮或将图片拖入窗口以检视其元数据。',
+        'Upload Image': '上传图像',
+        'This image contains no metadata.': '这张图片没有元数据。',
+        'Title': '标题',
+        'Description': '提示词',
+        'Software': '软件',
+        'Source': '模型',
+        'Request Type': '请求类型',
+        'Text to Image': '文生图',
+        'Image to Image': '图生图',
+        'Simplified': '简略',
+        'Resolution': '分辨率',
+        'Raw Parameters': '原始参数',
     };
 
     // 创建一个高效的正则表达式，一次性匹配所有需要翻译的词
@@ -457,11 +528,10 @@
         updateMenuText(); // 菜单设置可以立即执行
 
         // 我们等待一个明确的、由React渲染出来的元素出现
-        // 比如包含 "Prompt" 输入框的容器。经过检查，它的父容器有一个 `data-testid="prompt-input"` 属性。
-        // 这是一个非常稳定和理想的目标！
-        // 如果这个选择器失效，可以换成 `textarea[placeholder*="your prompt"]` 等
-        const keyElementSelector = '.prompt-input-box-prompt';
-
+        // 在 /image 页面，是提示词输入框 ('.prompt-input-box-prompt')。
+        // 在 /inspect 页面，是上传按钮 (它有一个 'button' 类，我们可以用 'button.button' 来定位)。
+        // 使用逗号 (,) 作为“或”选择器，等待任意一个元素出现即可触发后续的翻译流程。
+        const keyElementSelector = '.prompt-input-box-prompt, button.button';
         waitForElement(keyElementSelector, startTranslation);
     }
 
