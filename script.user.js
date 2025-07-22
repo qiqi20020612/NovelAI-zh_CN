@@ -156,14 +156,11 @@
         'The prompt will be used unmodified.': '不会修改提示词。',
         'Tags to increase quality will be prepended to the prompt.': '会在提示词中添加能够提高质量的Tag。',
         'Undesired Content Preset': '负面提示词预设',
+        // 负面提示词预设可以在https://docs.novelai.net/image/undesiredcontent.html查看
         'Heavy': '全面',
-        // 全面档负面提示词：nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract]
         'Light': '精简',
-        // 精简档负面提示词：nsfw, lowres, jpeg artifacts, worst quality, watermark, blurry, very displeasing
         'Human Focus': '以人为本',
-        // 聚焦角色档负面提示词：nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract], bad anatomy, bad hands, @_@, mismatched pupils, heart-shaped pupils, glowing eyes
         'None': '无',
-        // 即使选择无，也会添加负面提示词：lowres
         'Disable Tag Suggestions': '禁用Tag建议',
         'Highlight Emphasis': '高亮强调部分',
 
@@ -258,6 +255,38 @@
         'Generate 2 Images': '生成2张图像',
         'Generate 3 Images': '生成3张图像',
         'Generate 4 Images': '生成4张图像',
+
+        // 订阅
+        'You are not subscribed!': '你还没有开通订阅！',
+        'Take me there': '带我去开通',
+        'Subscribe': '订阅',
+        'Explore': '探索',
+        'Our Plans': '我们的计划',
+        '/mo': '/月',
+        'Unlimited Images': '无限图片',
+        'Image Gen Access': '图片生成权限',
+        'Access to our image generation features.': '能够使用我们的图像生成功能。',
+        'Pay As You Go': '按量付费',
+        'Unlimited': '无限',
+        'Purchase Discount': '购买折扣',
+        'The amount taken off our on-demand Anlas pricing.': '在额外购买按量付费的Anlas时享受折扣。',
+        'Discount': '折扣',
+        'Bonus': '奖励',
+        'Free extra monthly currency for use in generating images on NovelAI.': '每月免费提供用于在NovelAI上生成图片的货币。',
+        'For images of up to 1024x1024 pixels and up to 28 steps when generating a single image.': '适用于生成单幅最大1024x1024像素、最多28步数的图像。',
+        'A pool of Anlas that refills each month to the amount for your subscription tier. It will only refill if you have less than the amount for your subscription tier.': 'Anlas会在每次订阅续费时按照您的层级充值。只有当您剩余的Anlas少于赠送数量时才会被重新充值。',
+        'Activate a Gift Key': '激活礼品码',
+        'Anlas are a form of digital currency used to enhance your image generation experience for things like higher resolutions, faster generation times, and more.': 'Anlas 是一种用于增强图像生成体验的货币，如更高分辨率、更快的生成时间等。',
+        ' images†': '张图片†',
+        '† At the default resolution and settings.': '†使用默认分辨率和设置。',
+
+        // 充值Anlas
+        'Purchase ': '购买 ',
+        'Here you can purchase additional Anlas for training your AI Modules and for Image Generation.': '您可以在这里购买额外的Anlas，用于训练你的AI模块或生成图像。',
+        'Subscription Anlas will be refilled according to your subscription every month.': '订阅Anlas会在每次订阅续费时按照您的层级充值。',
+        'The discounted Anlas pricing does not undefinedto accounts with canceled or non-renewing subscriptions.': '订阅已取消或已过期的帐户不能享受Anlas折扣。',
+        'Your Subscription Anlas:': '您的订阅Anlas：',
+        'Your Paid Anlas:': '您的付费Anlas：',
     };
 
     // 创建一个高效的正则表达式，一次性匹配所有需要翻译的词
