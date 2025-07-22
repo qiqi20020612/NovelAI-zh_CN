@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      3.3
+// @version      3.4
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -29,6 +29,63 @@
 
     // 文本替换映射表
     const translationMap = {
+        // Osano
+        'This website utilizes technologies such as cookies to enable essential site functionality, as well as for analytics, personalization, and targeted advertising.': '本网站使用 Cookie 等技术来实现网站的基本功能，以及进行分析、个性化和有针对性的广告。',
+        'To learn more, view the following link:': '要了解更多信息，请查看以下链接：',
+        'Manage Preferences': '管理偏好',
+        // 'Storage Preferences': '存储偏好',
+        'When you visit websites, they may store or retrieve data about you using cookies and similar technologies ': '当您访问网站时，网站可能会使用 Cookie 和类似技术',
+        '. Cookies may be necessary for the basic functionality of the website as well as other purposes. You have the option of disabling certain types of cookies, though doing so may impact your experience on the website.': '存储或检索有关您的数据。网站的基本功能和其他目的可能都需要 Cookie。您可以选择禁用某些类型的 Cookie，但这样做可能会影响您在网站上的体验。',
+        'Essential': '必要',
+        'Required to enable basic website functionality. You may not disable essential cookies.': '为实现网站基本功能所必需。您不得禁用基本 Cookie。',
+        'View Cookies': '查看 Cookie',
+        'Targeted Advertising': '有针对性的广告',
+        'Used to deliver advertising that is more relevant to you and your interests. May also be used to limit the number of times you see an advertisement and measure the effectiveness of advertising campaigns.  Advertising networks usually place them with the website operator’s permission.': '用于提供与您和您的兴趣更相关的广告。也可用于限制您看到广告的次数和衡量广告活动的效果。广告网络通常在征得网站运营者的同意后投放广告。',
+        'Personalization': '个性化',
+        'Allow the website to remember choices you make ': '允许网站记住您所做的选择',
+        'such as your username, language, or the region you are in': '如您的用户名、语言或您所在的地区',
+        ' and provide enhanced, more personal features. For example, a website may provide you with local weather reports or traffic news by storing data about your general location.': '，并提供更强、更个性化的功能。例如，网站可以通过存储有关您的大致位置的数据，为您提供当地天气预报或交通新闻。',
+        'Analytics': '分析',
+        'Help the website operator understand how its website performs, how visitors interact with the site, and whether there may be technical issues.': '帮助网站运营商了解其网站的运行情况、访客与网站的互动情况以及是否存在技术问题。',
+
+        // 欢迎弹窗
+        'Welcome to NovelAI!': '欢迎来到 NovelAI！',
+        'Your ': '你的',
+        ' includes:': '包括：',
+        '30 free high quality image generations': '免费生成30张高质量图像',
+        'Full access to our latest model': '我们最新模型的完全访问权限',
+        'No credit card required': '无需信用卡',
+        'Start Free Trial': '开始免费体验',
+        'Create an account and start for free': '创建一个账号开始免费体验',
+        'Sign Up': '注册',
+        'Log In': '登录',
+
+        // 注册登录
+        'Welcome back!': '欢迎回来！',
+        'Ready to create your first masterpiece': '准备好开始创作您的第一幅杰作了吗',
+        'Register for free and unlock ': '免费注册并解锁',
+        '30 high quality': '30张高质量',
+        ' generations.': '图像生成。',
+        'Already have an account': '已经有账号了吗',
+        'Email': '电子邮件',
+        'Password': '密码',
+        'Remember me': '记住我',
+        'Login is remembered for 30 days': '保持登录30天',
+        'Login will not be remembered': '登录不会被记住',
+        'Repeat Password': '确认密码',
+        'Would you like to receive emails about updates from us in the future': '您希望今后收到有关我们更新信息的电子邮件吗',
+        // 'Sign In': '登录',
+        // 'Start Creating!': '开始创作！',
+        'Reset Password': '忘记密码',
+        'NOTE:': '注意：',
+        'Please take good care of your login credentials. Due to local encryption, losing your email or password results in permanently losing access to your remotely stored stories.': '请妥善保管您的登录凭证。由于数据在本地加密保存，丢失电子邮件或密码将导致永久无法访问远程存储的故事。',
+        'By registering, you agree to consent to the NovelAI ': '注册即表示您同意 NovelAI ',
+        'Privacy Policy and Terms of Service': '隐私政策和服务条款',
+        'This site is protected by reCAPTCHA and the Google': '本网站受 reCAPTCHA 保护， Google ',
+        'Privacy Policy': '隐私政策',
+        'Terms of Service': '服务条款',
+        'apply.': '适用。',
+
         // 历史记录
         'History': '历史记录',
         'Click on an image to set your settings to the ones used to generate it': '左键点击图像可以快速应用生成该图像时的原始设置',
@@ -44,9 +101,11 @@
 
         // 个人菜单
         'Author': '作者',
+        'Anonymous Trial': '游客试用',
         'Not Subscribed': '未订阅',
         'Account': '账号',
         'Account Settings': '账号设置',
+        'End Session': '结束会话',
         'Logout': '退出',
         'Other': '其它',
         'Quick Start Gallery': '快速上手图库',
@@ -57,7 +116,6 @@
         'Tutorial': '教程',
         'Documentation': '文档',
         'Version ': '版本 ',
-        'EN': 'CN',
 
         // 快速上手图库
         'Get Started': '让我们开始吧',
@@ -183,7 +241,7 @@
         'Variety': '多样性',
         'Enable guidance only after body has been formed, to improve diversity and saturation of samples. May reduce relevance.': '只应在身体形成后再启用引导功能，可以提高样本的多样性和饱和度。可能会降低相关性。',
         'Seed': '种子',
-        'Enter a seed': '输入一个种子',
+        // 'Enter a seed': '输入一个种子',
         'Sampler': '采样器',
         'Recommended': '推荐',
         'Advanced Settings': '高级设置',
@@ -205,7 +263,6 @@
     // 创建一个高效的正则表达式，一次性匹配所有需要翻译的词
     // 使用 Object.keys 获取所有要翻译的英文原文
     // 用 | 连接成一个大的 "或" 逻辑的正则
-    const regex = new RegExp(Object.keys(translationMap).sort((a, b) => b.length - a.length).join('|'), 'g');
 
     // 1. 获取所有键并按长度从长到短排序，避免"Account"优先于"Account Settings"被匹配
     // const sortedKeys = Object.keys(translationMap).sort((a, b) => b.length - a.length);
@@ -217,10 +274,8 @@
     //
     //    注意：在字符串中表示反斜杠 \ 需要写成 \\
 
-    // 创建一个高效的正则表达式，一次性匹配所有需要翻译的词
-    // 使用 Object.keys 获取所有要翻译的英文原文
-    // 用 | 连接成一个大的 "或" 逻辑的正则
     // const regex = new RegExp('\\b(' + sortedKeys.join('|') + ')\\b', 'g');
+    const regex = new RegExp(Object.keys(translationMap).sort((a, b) => b.length - a.length).join('|'), 'g');
 
     // 替换函数
     function replaceText(node) {
@@ -303,7 +358,7 @@
         const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
         let currentNode;
         while (currentNode = walker.nextNode()) {
-            replaceText(currentNode); // replaceText 函数是你已经写好的
+            replaceText(currentNode);
         }
     }
 
@@ -343,7 +398,6 @@
         });
     }
 
-
     // 侦察兵函数：轮询检查关键元素是否存在
     function waitForElement(selector, callback) {
         const element = document.querySelector(selector);
@@ -377,7 +431,7 @@
         // 比如包含 "Prompt" 输入框的容器。经过检查，它的父容器有一个 `data-testid="prompt-input"` 属性。
         // 这是一个非常稳定和理想的目标！
         // 如果这个选择器失效，可以换成 `textarea[placeholder*="your prompt"]` 等
-        const keyElementSelector = '.prompt-input-box-prompt'; 
+        const keyElementSelector = '.prompt-input-box-prompt';
 
         waitForElement(keyElementSelector, startTranslation);
     }
