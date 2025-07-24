@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         NovelAI图像生成汉化
 // @namespace    https://github.com/qiqi20020612/NovelAI-zh_CN
-// @version      3.6
+// @version      3.7
 // @description  NovelAI图像生成的简体中文汉化脚本
 // @author       Z某ZMou
 // @match        https://novelai.net/image
@@ -27,8 +27,8 @@
     // 设置页面语言为中文
     document.documentElement.lang = 'zh-CN';
 
-    // 文本替换映射表
-    const translationMap = {
+    // 文本替换映射表 - 图像生成页面
+    const imageTranslationMap = {
         // Osano
         'This website utilizes technologies such as cookies to enable essential site functionality, as well as for analytics, personalization, and targeted advertising.': '本网站使用 Cookie 等技术来实现网站的基本功能，以及进行分析、个性化和有针对性的广告。',
         'To learn more, view the following link:': '要了解更多信息，请查看以下链接：',
@@ -49,6 +49,7 @@
         'Help the website operator understand how its website performs, how visitors interact with the site, and whether there may be technical issues.': '帮助网站运营商了解其网站的运行情况、访客与网站的互动情况以及是否存在技术问题。',
 
         // 欢迎弹窗
+        'There are issues connecting to the backend right now, please check your connection or try again...': '连接到后台时出现问题，请检查您的连接或重试...',
         'Welcome to NovelAI!': '欢迎来到 NovelAI！',
         'Your ': '你的',
         ' includes:': '包括：',
@@ -94,7 +95,8 @@
         'Delete it': '确认删除',
         'No, keep it': '不，取消',
         'Download ZIP': '打包下载全部图片',
-        'Download all images? This could take a while, or fail entirely, with large numbers of images.': '确实要下载所有图像吗？如果图像数量较多，可能会需要一些时间，或导致下载失败。',
+        'Download all images': '确定要下载所有图像吗',
+        ' This could take a while, or fail entirely, with large numbers of images.': '如果图像数量较多，可能会需要一些时间，或导致下载失败。',
         'Downloading': '正在下载',
         'images...': '张图片...',
         'Images downloaded': '图片已开始下载',
@@ -141,12 +143,12 @@
         // 'or': '或者',
         'Randomize': '随机生成',
         'Random Prompt': '随机提示词',
-        'Quality Tags Enabled': '已启用质量优化',
+        // 'Quality Tags Enabled': '已启用质量优化',
         'Added to the end of the prompt:': '会在输入的提示词结尾添加以下提示词：',
         'Undesired Content': '负面提示词',
         'Reattach Undesired Content': '拼接负面提示词',
         'Detach Undesired Content': '拆分负面提示词',
-        'UC Preset Enabled': '已启用负面提示词预设',
+        // 'UC Preset Enabled': '已启用负面提示词预设',
         'Added to the beginning of the UC:': '会在输入的负面提示词前面添加以下提示词：',
         'This prompt is using ': '输入的部分占',
         ' of the currently used ': '个Token，共使用了',
@@ -204,6 +206,7 @@
         // 其他工具
         'Vibe Transfer': '氛围转移',
         'Change the image, keep the vision.': '改变图像，保留视觉。',
+        'Use a variety of AI tools to edit your images.': '使用各种AI工具编辑你的图像。',
         'Normalize Reference Strength Values': '标准化参考强度值',
         'Imported': '已导入',
         'Vibe Transfer reference image': '张氛围转移参考图片',
@@ -259,6 +262,9 @@
         // 订阅
         'You are not subscribed!': '你还没有开通订阅！',
         'Take me there': '带我去开通',
+        'The paint’s run dry.': '颜料已经干了。',
+        'You need a subscription or to purchase Anlas to continue.': '您需要订阅或购买Anlas才能继续使用。',
+        'Compare and pick the right plan for you.': '比较并选择适合您的计划。',
         'Subscribe': '订阅',
         'Explore': '探索',
         'Our Plans': '我们的计划',
@@ -302,7 +308,7 @@
         'Images will not automatically download after generation.': '图像生成完后不会自动下载。',
         'Interface': '界面',
         'UI Language': 'UI语言',
-        'English': '简体中文',
+        'English': '英文',
         'Current Tier': '当前层级',
         'Your subscription expired on ': '你的订阅已结束于',
         'Your subscription ends on ': '你的订阅将在',
@@ -341,10 +347,90 @@
         'Gift key purchases have been removed indefinitely due to abuse.': '由于遭到滥用，购买礼品码已被无限期禁用。',
         // 'Buy New Gift Key': '购买新的礼品码',
         // 'No Gift Keys yet!': '还没有礼品码！',
-        'Support': '帮助',
+        'Support': '支持',
         'Change Log': '更新日志',
 
-        // 检视
+        // 教程（不建议启用）
+        // 'Behold, Your Canvas!': '看哪，你的画布！',
+        // 'The ': '这个',
+        // 'Base Prompt': '基本提示词',
+        // ' box is where you enter what you want the AI to generate.': '框用来输入您希望AI生成的内容。',
+        // 'Example:': '示例：',
+        // 'Later, you can use the ': '之后，您可以使用',
+        // ' button to manage multiple characters and even reuse them in future generations.': '按钮来管理多个角色，甚至可以在后续的生成中重复使用。',
+
+        // 'Tags': '标签',
+        // 'When you type the AI will suggest you ': '当您输入时，AI会向您推荐',
+        // 'tags': '标签',
+        // '. They\'re the most unique aspect of NovelAI to assist you in creating consistent images.': '。这是NovelAI最独特的地方，可以帮助您创建一致的图像。',
+        // 'The AI knows a lot of stuff, and it\'s trained on simple': 'AI知道很多东西，它是根据简单的',
+        // ' tags. For best results, write tags in all': '标签训练出来的。为获得最佳效果，请使用',
+        // 'lower-case': '小写字母',
+        // ' and separate them with a': '书写标签，并用',
+        // 'comma and a space': '逗号和空格分隔',
+
+        // 'Think of 标签 as the elements that make up images.': '把标签视为组成图像的元素。',
+        // 'You can even combine ': '你甚至可以将',
+        // 'natural language': '自然语言',
+        // ' with': '与',
+        // ' to get more detailed in your prompts.': '结合起来以完善你的提示词。',
+        // 'See the little circle next to each tag': '看到每个标签旁边的小圆圈了吗',
+        // ' This shows how well the AI': '这表示AI有多',
+        // 'knows': '了解',
+        // ' each tag.': '每个标签。',
+        // 'brighter': '亮度越亮',
+        // ' it is, the ': '说明AI',
+        // 'more': '越了解',
+        // ' the AI understands it.': '这个标签。',
+        // 'Want to learn more about tags': '想了解有关标签的更多信息',
+        // ' Check out our': '查看我们的',
+        // 'Creating Consistent 角色': '创建一致的角色',
+        // 'tutorial!': '教程！',
+
+        // 'Strengthening & Weakening': '强化与弱化',
+        // 'Brackets are used to ': '括号用于',
+        // 'strengthen': '强化',
+        // ' or ': '或',
+        // 'weaken': '弱化',
+        // 'tags for a finer control over what the AI will focus on.': '标签，以便更精细地控制AI的关注点。',
+        // 'To ': '要',
+        // 'strengthen': '强化',
+        // ' a tag, surround it in': '标签，请用',
+        // 'curly brackets': '大括号',
+        // '. The more brackets you use, the stronger the effect, but too many can have some strange effects.': '将其包裹起来。使用的括号越多，效果越强，但过多的括号可能会产生一些奇怪的效果。',
+        // 'Make sure you use the same amount on both sides!': '记得确保两边的括号数量相同！',
+        // 'You can also ': '您也可以',
+        // 'weaken': '弱化',
+        // ' a tag by surrounding it in': '标签，使用',
+        // 'square brackets': '方括号',
+        // 'This works well for things like make-up that can sometimes turn out a little too extreme.': '这对于像化妆这样有时会显得过于极端的事情很有效。',
+
+        // 'You can edit the ': '您可以编辑',
+        // ' field to get rid of things in your images.': '字段来删除图像中的内容。',
+        // 'For example, you can add ': '例如，您可以添加',
+        // ' to': '到',
+        // ' stop the AI from giving hats to your characters.': '以阻止AI给角色戴帽子。',
+
+        // 'Can’t think of anything to generate': '想不出要生成什么',
+        // 'Return to the Quick Start Gallery by clicking the NovelAI Logo in the top left!': '点击左上角的 NovelAI 徽标，返回快速入门图库！',
+        // 'Get Inspiration from our quick start gallery.': '从我们的快速上手图库中获取灵感。',
+
+        // 'Image Generation Basics +1': '更多图像生成基础知识',
+        // 'Want to learn more basics of Image Generation': '想了解更多图像生成基础知识',
+        // 'We’ve got a handy starter Tutorial Video for you!': '我们为您准备了一个简单的入门教程视频！',
+        // 'We’ve also got a whole flurry of information over on the': '我们还提供了大量信息在',
+        // 'Official NovelAI Docs Page!': 'NovelAI官方文档页面',
+        // 'You can find these handy resources at any time under the Hamburger menu': '您可以随时在汉堡菜单下找到这些方便的资源',
+        // 'That’s it for now!': '就到此为止！',
+        // 'Happy creating!': '创作愉快！',
+
+        // 'Skip Tutorial': '跳过教程',
+        // 'Next': '下一步',
+        // 'Finish': '完成',
+    };
+
+    // 文本替换映射表 - 检视页面
+    const inspectTranslationMap = {
         'Click the upload button or drag an image into the window to check its metadata.': '点击上传按钮或将图片拖入窗口以检视其元数据。',
         'Upload Image': '上传图像',
         'This image contains no metadata.': '这张图片没有元数据。',
@@ -356,26 +442,21 @@
         'Text to Image': '文生图',
         'Image to Image': '图生图',
         'Simplified': '简略',
+        'Prompt': '提示词',
+        'Undesired Content': '负面提示词',
         'Resolution': '分辨率',
+        'Seed': '种子',
+        'Steps': '步数',
+        'Sampler': '采样器',
+        'Prompt Guidance': '提示词引导值',
+        'Prompt Guidance Rescale': '缩放提示词引导值',
+        'Undesired Content Strength': '负面提示词强度',
         'Raw Parameters': '原始参数',
     };
 
-    // 创建一个高效的正则表达式，一次性匹配所有需要翻译的词
-    // 使用 Object.keys 获取所有要翻译的英文原文
-    // 用 | 连接成一个大的 "或" 逻辑的正则
-
-    // 1. 获取所有键并按长度从长到短排序，避免"Account"优先于"Account Settings"被匹配
-    // const sortedKeys = Object.keys(translationMap).sort((a, b) => b.length - a.length);
-
-    // 2. 将每个键视为一个独立的单词，用单词边界 \b 包裹
-    //    注意：这里我们不能简单地在外面套一层 \b，因为有些键本身可能包含非单词字符（如 'Version '）
-    //    更稳妥的方式是为每个“干净”的键添加边界。但为了简单起见，我們先用一个通用方法。
-    //    一个更健壮的通用方法是把所有键用 | 连接后，再用括号包起来，然后在这个整体前后加 \b。
-    //
-    //    注意：在字符串中表示反斜杠 \ 需要写成 \\
-
-    // const regex = new RegExp('\\b(' + sortedKeys.join('|') + ')\\b', 'g');
-    const regex = new RegExp(Object.keys(translationMap).sort((a, b) => b.length - a.length).join('|'), 'g');
+    // 用于存放当前页面生效的翻译数据和正则表达式
+    let activeTranslationMap = {};
+    let regex;
 
     // 替换函数
     function replaceText(node) {
@@ -384,10 +465,21 @@
             return;
         }
 
+        // 检查当前文本节点是否位于以下任何一个不应翻译的区域内
+        // .closest() 方法会从当前元素（或其父元素）开始向上查找，如果找到匹配的选择器，则返回该元素，否则返回 null
+        if (node.parentElement) {
+            // 规则1: 如果父元素是 <code> 标签，则不翻译。
+            // 规则2: 如果父元素在任何一个排除的容器内（如输入框），则不翻译。
+            if (node.parentElement.tagName === 'CODE' ||
+                node.parentElement.closest('.prompt-input-box-prompt, .prompt-input-box-undesired-content, .image-prompt-suggestions')) {
+                return; // 满足任一规则，立即退出函数。
+            }
+        }
+
         // 使用一个正则表达式一次性替换所有匹配到的词
         // replace函数的第二个参数可以是函数，它会对每个匹配项调用这个函数
         // 'match' 就是匹配到的英文原文（比如 'Account'）
-        let replacedValue = node.nodeValue.replace(regex, (match) => translationMap[match]);
+        let replacedValue = node.nodeValue.replace(regex, (match) => activeTranslationMap[match]);
 
         // 只有在内容真的发生改变时才去修改 DOM，避免不必要的重绘
         if (node.nodeValue !== replacedValue) {
@@ -506,26 +598,64 @@
             callback();
         } else {
             // 元素不存在，设置一个定时器，稍后重试
-            const intervalId = setInterval(() => {
+            let intervalId; // 将 intervalId 提升作用域
+            let timeoutId;  // 为超时计时器创建一个变量
+
+            const tryToFindElement = () => {
                 const element = document.querySelector(selector);
                 if (element) {
                     // 找到了！清除定时器并执行回调
                     clearInterval(intervalId);
+                    clearTimeout(timeoutId); // 在这里取消“保险闹钟”
                     callback();
                 }
-            }, 200); // 每200毫秒检查一次
+            };
+
+            intervalId = setInterval(tryToFindElement, 200); // 每200毫秒检查一次
 
             // 设置一个超时，以防页面永远加载不出来，避免无限轮询
-            setTimeout(() => {
+            timeoutId = setTimeout(() => { // 捕获超时计时器的ID
                 clearInterval(intervalId);
                 console.log(`等待关键元素 "${selector}" 超时，脚本可能无法正常工作。`);
-            }, 15000); // 15秒后超时
+            }, 30000); // 30秒后超时
         }
     }
 
     // 脚本入口
     function init() {
         updateMenuText(); // 菜单设置可以立即执行
+
+        const pathname = window.location.pathname; // 获取当前路径，如 "/image" 或 "/inspect"
+
+        // 根据页面路径选择不同的翻译表
+        if (pathname.includes('/image')) {
+            activeTranslationMap = { ...imageTranslationMap, ...inspectTranslationMap };
+        } else if (pathname.includes('/inspect')) {
+            activeTranslationMap = inspectTranslationMap;
+        } else {
+            // 如果不是目标页面，则不进行任何翻译操作
+            console.log("NovelAI汉化脚本：当前页面非目标页面，不执行翻译。");
+            return;
+        }
+
+        // 检查是否有可用的翻译条目
+        if (Object.keys(activeTranslationMap).length === 0) {
+            return; // 如果没有，则不继续
+        }
+
+        // 创建一个高效的正则表达式，一次性匹配所有需要翻译的词
+        // 使用 Object.keys 获取所有要翻译的英文原文
+        // 用 | 连接成一个大的 "或" 逻辑的正则
+        // 1. 获取所有键并按长度从长到短排序，避免"Account"优先于"Account Settings"被匹配
+        // 2. 将每个键视为一个独立的单词，用单词边界 \b 包裹
+        //    注意：这里我们不能简单地在外面套一层 \b，因为有些键本身可能包含非单词字符（如 'Version '）
+        //    更稳妥的方式是为每个“干净”的键添加边界。但为了简单起见，我們先用一个通用方法。
+        //    一个更健壮的通用方法是把所有键用 | 连接后，再用括号包起来，然后在这个整体前后加 \b。
+        //
+        //    注意：在字符串中表示反斜杠 \ 需要写成 \\
+
+        // 根据选定的翻译表，动态生成正则表达式
+        regex = new RegExp(Object.keys(activeTranslationMap).sort((a, b) => b.length - a.length).join('|'), 'g');
 
         // 我们等待一个明确的、由React渲染出来的元素出现
         // 在 /image 页面，是提示词输入框 ('.prompt-input-box-prompt')。
